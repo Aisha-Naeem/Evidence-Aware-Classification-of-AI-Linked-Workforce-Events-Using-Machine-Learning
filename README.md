@@ -1,9 +1,6 @@
 # Evidence-Aware Classification of AI-Linked Workforce Events Using Machine Learning
 
 **DSTT Term Project: Part 1 (Data Preparation & EDA) and Part 2 (Modelling, Evaluation & ML Pipeline)**
-Data Science Tools and Techniques (DSTT), MS Data Science
-Group: **Ayesha Naeem (26L-8007)** · **Muhammad Mazhar (26L-8027)**
-
 ---
 
 ## 1. Project overview
@@ -151,15 +148,5 @@ Both notebooks contain assertions that stop them if the data does not match the 
 - **Final model chosen on CV only;** the test fold is used once, and all models' test scores are reported with a bootstrap CI for transparency.
 - **Same features in training and serving:** `src/attribution_features.py` is asserted to reproduce the Part 1 features exactly from the raw CSV, and the demo uses that module.
 - **Deployed model** = the selected pipeline re-fitted on all 320 events after evaluation; the reported performance is the test estimate of the train-only model.
-
-## 8. Uploading to GitHub
-
-```bash
-git init
-git add .
-git commit -m "DSTT term project: Part 1 and Part 2"
-git branch -M main
-git remote add origin https://github.com/<your-username>/<repo-name>.git
-git push -u origin main
 ```
 All files are small (largest is the 2.6 MB model), so no Git LFS is needed. Submit the repository link together with the Part 2 notebook.
