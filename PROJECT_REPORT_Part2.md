@@ -1,7 +1,6 @@
 # Part 2 Report: What We Did and Why
 
 **Project:** Evidence-Aware Classification of AI-Linked Workforce Events Using Machine Learning
-**Group:** Ayesha Naeem (26L-8007) · Muhammad Mazhar (26L-8027)
 **Notebook:** `Part2_Modelling_and_Evaluation.ipynb` · **Demo:** `app.py`
 
 This document walks through Part 2 step by step. For every step it says **what** was done, **why** it was done that way, and **what came out of it**. It follows Phases 3–6 of our submitted proposal. Section numbers in brackets refer to the notebook.
