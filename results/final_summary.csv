@@ -1,0 +1,15 @@
+,value
+final model,Random Forest on combined features
+"CV macro-F1 (train, grouped 4-fold)",0.665
+test macro-F1 [95% CI],"0.570 [0.439, 0.696]"
+test balanced accuracy,0.597
+test accuracy,0.653
+majority reference (test macro-F1),0.250
+per-class test F1 (explicit / mixed / blamed),0.33 / 0.72 / 0.65
+best text-only CV macro-F1,0.618
+best context-only CV macro-F1,0.510
+best combined CV macro-F1,0.665
+chronological hold-out macro-F1,0.669
+without verdict phrases (test macro-F1),0.567
+figures saved in this notebook,13
+total run time (min),9.2

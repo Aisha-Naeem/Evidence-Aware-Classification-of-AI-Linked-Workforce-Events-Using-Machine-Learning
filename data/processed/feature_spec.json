@@ -1,0 +1,222 @@
+{
+  "target": "attribution",
+  "classes": [
+    "explicit",
+    "mixed",
+    "blamed"
+  ],
+  "experiments": {
+    "exp1_text_only": {
+      "use_text": true,
+      "use_context": false,
+      "columns": [
+        "text_clean",
+        "claim_word_count",
+        "claim_number_count",
+        "claim_quote_count",
+        "ai_term_count",
+        "business_reason_count",
+        "third_party_count",
+        "ai_negation_count",
+        "source_is_company",
+        "source_is_filing"
+      ]
+    },
+    "exp2_context_only": {
+      "use_text": false,
+      "use_context": true,
+      "columns": [
+        "sector_group",
+        "region",
+        "country_primary",
+        "kind",
+        "execution",
+        "log_headcount",
+        "pct_workforce",
+        "year",
+        "month_sin",
+        "month_cos",
+        "n_job_families",
+        "multi_country",
+        "is_us",
+        "has_headcount",
+        "has_pct_workforce",
+        "jf_consulting_and_professional_services",
+        "jf_content_moderation",
+        "jf_corporate_functions",
+        "jf_customer_service_and_support",
+        "jf_frontline_and_manual_work",
+        "jf_management_layers",
+        "jf_operations_and_back_office",
+        "jf_product_and_design",
+        "jf_sales_and_marketing",
+        "jf_software_engineering_and_it",
+        "jf_writing_editorial_and_translation"
+      ]
+    },
+    "exp3_combined": {
+      "use_text": true,
+      "use_context": true,
+      "columns": [
+        "text_clean",
+        "claim_word_count",
+        "claim_number_count",
+        "claim_quote_count",
+        "ai_term_count",
+        "business_reason_count",
+        "third_party_count",
+        "ai_negation_count",
+        "source_is_company",
+        "source_is_filing",
+        "sector_group",
+        "region",
+        "country_primary",
+        "kind",
+        "execution",
+        "log_headcount",
+        "pct_workforce",
+        "year",
+        "month_sin",
+        "month_cos",
+        "n_job_families",
+        "multi_country",
+        "is_us",
+        "has_headcount",
+        "has_pct_workforce",
+        "jf_consulting_and_professional_services",
+        "jf_content_moderation",
+        "jf_corporate_functions",
+        "jf_customer_service_and_support",
+        "jf_frontline_and_manual_work",
+        "jf_management_layers",
+        "jf_operations_and_back_office",
+        "jf_product_and_design",
+        "jf_sales_and_marketing",
+        "jf_software_engineering_and_it",
+        "jf_writing_editorial_and_translation"
+      ]
+    }
+  },
+  "spec_blocks": {
+    "text": "text_clean",
+    "text_numeric": [
+      "claim_word_count",
+      "claim_number_count",
+      "claim_quote_count",
+      "ai_term_count",
+      "business_reason_count",
+      "third_party_count",
+      "ai_negation_count"
+    ],
+    "text_binary": [
+      "source_is_company",
+      "source_is_filing"
+    ],
+    "context_categorical": [
+      "sector_group",
+      "region",
+      "country_primary",
+      "kind",
+      "execution"
+    ],
+    "context_numeric": [
+      "log_headcount",
+      "pct_workforce",
+      "year",
+      "month_sin",
+      "month_cos",
+      "n_job_families"
+    ],
+    "context_binary": [
+      "multi_country",
+      "is_us",
+      "has_headcount",
+      "has_pct_workforce",
+      "jf_consulting_and_professional_services",
+      "jf_content_moderation",
+      "jf_corporate_functions",
+      "jf_customer_service_and_support",
+      "jf_frontline_and_manual_work",
+      "jf_management_layers",
+      "jf_operations_and_back_office",
+      "jf_product_and_design",
+      "jf_sales_and_marketing",
+      "jf_software_engineering_and_it",
+      "jf_writing_editorial_and_translation"
+    ]
+  },
+  "excluded_columns": {
+    "leakage": [
+      "what_the_employer_said",
+      "why_not_counted",
+      "evidence_tier",
+      "counts_in_us_index",
+      "roles_counted",
+      "roles_reported_not_counted"
+    ],
+    "identifiers": [
+      "event_id",
+      "company",
+      "company_group",
+      "source_url"
+    ],
+    "raw_replaced_by_engineered": [
+      "sector_raw",
+      "country_raw",
+      "pct_of_workforce",
+      "job_families",
+      "headcount",
+      "claim",
+      "source_title"
+    ],
+    "descriptive_not_modelled": [
+      "functions"
+    ],
+    "audit_only": [
+      "claim_has_verdict_phrase",
+      "text_clean_noverdict (alternative text for sensitivity check)"
+    ],
+    "redundant": {
+      "months_since_start": "|rho|=0.85 with year"
+    }
+  },
+  "split": {
+    "method": "StratifiedGroupKFold",
+    "n_splits": 5,
+    "shuffle": true,
+    "random_state": 42,
+    "groups": "company_group",
+    "test_fold": 0,
+    "fold_column": "sgkf_fold",
+    "n_train": 245,
+    "n_test": 75,
+    "chrono_column": "chrono_split",
+    "chrono_test_from": "2026-07-15"
+  },
+  "text_processing": {
+    "company_mask_token": "companyname",
+    "number_token": "num",
+    "sensitivity_text_column": "text_clean_noverdict",
+    "verdict_phrase_flag": "claim_has_verdict_phrase (audit only, not a feature)",
+    "tfidf": {
+      "ngram_range": [
+        1,
+        2
+      ],
+      "stop_words": "english",
+      "min_df": 2,
+      "sublinear_tf": true
+    }
+  },
+  "primary_metric": "macro_f1",
+  "majority_baseline_test": {
+    "accuracy": 0.6,
+    "macro_F1": 0.25,
+    "balanced_accuracy": 0.333
+  },
+  "versions": {
+    "pandas": "2.3.3",
+    "numpy": "2.2.6",
+    "scikit-learn": "1.7.2"
+  }
+}

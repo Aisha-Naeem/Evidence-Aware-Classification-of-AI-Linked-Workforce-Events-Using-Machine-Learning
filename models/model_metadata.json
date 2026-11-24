@@ -1,0 +1,79 @@
+{
+  "model": "Random Forest",
+  "feature_configuration": "Combined",
+  "calibrated": false,
+  "hyperparameters": {
+    "clf__max_depth": 10,
+    "clf__max_features": 0.05,
+    "clf__min_samples_leaf": 3,
+    "pre__tfidf__select__k": 1000
+  },
+  "input_columns": [
+    "text_clean",
+    "claim_word_count",
+    "claim_number_count",
+    "claim_quote_count",
+    "ai_term_count",
+    "business_reason_count",
+    "third_party_count",
+    "ai_negation_count",
+    "source_is_company",
+    "source_is_filing",
+    "sector_group",
+    "region",
+    "country_primary",
+    "kind",
+    "execution",
+    "log_headcount",
+    "pct_workforce",
+    "year",
+    "month_sin",
+    "month_cos",
+    "n_job_families",
+    "multi_country",
+    "is_us",
+    "has_headcount",
+    "has_pct_workforce",
+    "jf_consulting_and_professional_services",
+    "jf_content_moderation",
+    "jf_corporate_functions",
+    "jf_customer_service_and_support",
+    "jf_frontline_and_manual_work",
+    "jf_management_layers",
+    "jf_operations_and_back_office",
+    "jf_product_and_design",
+    "jf_sales_and_marketing",
+    "jf_software_engineering_and_it",
+    "jf_writing_editorial_and_translation"
+  ],
+  "classes": [
+    "explicit",
+    "mixed",
+    "blamed"
+  ],
+  "trained_on_events": 320,
+  "selection": "highest mean grouped 4-fold CV macro-F1 on the 245 training events",
+  "cv_macro_f1": 0.6645,
+  "test_metrics_train_only_model": {
+    "macro_f1": 0.5698,
+    "accuracy": 0.6533,
+    "balanced_accuracy": 0.597,
+    "macro_precision": 0.5592,
+    "macro_recall": 0.597,
+    "f1_explicit": 0.3333,
+    "f1_mixed": 0.7229,
+    "f1_blamed": 0.6531
+  },
+  "test_macro_f1_95ci": [
+    0.4393,
+    0.6965
+  ],
+  "majority_baseline_test_macro_f1": 0.25,
+  "versions": {
+    "python": "3.10.11",
+    "scikit-learn": "1.7.2",
+    "pandas": "2.3.3",
+    "numpy": "2.2.6"
+  },
+  "disclaimer": "Predicts the register's attribution category from how an event was reported. It is not evidence that AI caused any job losses."
+}
